@@ -1,0 +1,47 @@
+﻿<Window x:Class="TextRecognition.OverlayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TextRecognition"
+        mc:Ignorable="d"
+        Title="OverlayWindow"
+        ShowInTaskbar="False"
+        WindowStyle="None"
+        Topmost="True"
+        ResizeMode="NoResize"
+        Width="200"
+        Height="100"
+        Cursor="Cross">
+    <Window.Resources>
+        <ResourceDictionary>
+            <local:RectConverter x:Key="RectConverter" />
+        </ResourceDictionary>        
+    </Window.Resources>
+    <Grid x:Name="OverlayGrid">
+        <Image x:Name="BackgroundImage"/>
+        <Canvas HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+            <Path Stroke="Black" Fill="Black" Opacity=".6">
+                <Path.Data>
+                    <CombinedGeometry GeometryCombineMode="Exclude">
+                        <CombinedGeometry.Geometry1>
+                            <RectangleGeometry>
+                                <RectangleGeometry.Rect>
+                                    <MultiBinding Converter="{StaticResource RectConverter}">
+                                        <Binding ElementName="OverlayGrid" Path="ActualWidth"/>
+                                        <Binding ElementName="OverlayGrid" Path="ActualHeight"/>
+                                    </MultiBinding>
+                                </RectangleGeometry.Rect>
+                            </RectangleGeometry>
+                        </CombinedGeometry.Geometry1>
+                        <CombinedGeometry.Geometry2>
+                            <RectangleGeometry x:Name="SelectionRectangle">
+                            </RectangleGeometry>
+                        </CombinedGeometry.Geometry2>
+                    </CombinedGeometry>
+                </Path.Data>
+            </Path>
+        </Canvas>
+    </Grid>
+</Window>
