@@ -1,4 +1,4 @@
-﻿namespace TextRecognition.FileTasks
+﻿namespace SearchablePdfCreator.FileTasks
 {
     public enum OcrStatus
     {

@@ -1,4 +1,4 @@
-﻿namespace TextRecognition
+﻿namespace SearchablePdfCreator
 {
     public interface IOcrOutputFile
     {

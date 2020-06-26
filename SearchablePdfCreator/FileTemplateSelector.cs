@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using TextRecognition.FileTasks;
+using SearchablePdfCreator.FileTasks;
 
-namespace TextRecognition
+namespace SearchablePdfCreator
 {
     class FileTemplateSelector : DataTemplateSelector
     {

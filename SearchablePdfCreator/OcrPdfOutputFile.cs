@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace TextRecognition
+namespace SearchablePdfCreator
 {
     class OcrPdfOutputFile : IOcrOutputFile
     {

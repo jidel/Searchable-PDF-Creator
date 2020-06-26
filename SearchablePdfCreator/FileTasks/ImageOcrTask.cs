@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace TextRecognition.FileTasks
+namespace SearchablePdfCreator.FileTasks
 {
     internal class ImageOcrTask : BindableBase, IOcrTask, IDisposable
     {
@@ -55,7 +55,7 @@ namespace TextRecognition.FileTasks
             try
             {
                 StatusMessage = "Running text recognition...";
-                Completion = ExecuteTextRecognitionAsync();
+                Completion = ExecuteSearchablePdfCreatorAsync();
                 await Completion;
                 Status = OcrStatus.Finished;
                 StatusMessage = "Text recognition finished!";
@@ -74,7 +74,7 @@ namespace TextRecognition.FileTasks
             }
         }
 
-        private async Task ExecuteTextRecognitionAsync()
+        private async Task ExecuteSearchablePdfCreatorAsync()
         {
             var tesseractOcr = new TesseractOcr(_culture);
 

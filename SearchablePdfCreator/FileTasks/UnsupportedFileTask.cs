@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 
-namespace TextRecognition.FileTasks
+namespace SearchablePdfCreator.FileTasks
 {
     public class UnsupportedFileTask : BindableBase, IOcrTask
     {

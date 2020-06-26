@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Data;
 
-namespace TextRecognition
+namespace SearchablePdfCreator
 {
     public class RectConverter : IMultiValueConverter
     {

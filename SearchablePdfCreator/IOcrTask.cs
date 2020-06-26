@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using TextRecognition.FileTasks;
+using SearchablePdfCreator.FileTasks;
 
-namespace TextRecognition
+namespace SearchablePdfCreator
 {
     public interface IOcrTask
     {

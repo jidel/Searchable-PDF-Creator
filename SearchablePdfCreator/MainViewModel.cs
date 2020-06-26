@@ -7,10 +7,10 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Windows;
-using TextRecognition.FileTasks;
-using TextRecognition.ScreenCapture;
+using SearchablePdfCreator.FileTasks;
+using SearchablePdfCreator.ScreenCapture;
 
-namespace TextRecognition
+namespace SearchablePdfCreator
 {
     internal class MainViewModel : BindableBase
     {

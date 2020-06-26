@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
-namespace TextRecognition
+namespace SearchablePdfCreator
 {
     /// <summary>
     /// Interaction logic for OverlayWindow.xaml

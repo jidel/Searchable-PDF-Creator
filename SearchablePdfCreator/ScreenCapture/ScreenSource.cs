@@ -3,7 +3,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
-namespace TextRecognition.ScreenCapture
+namespace SearchablePdfCreator.ScreenCapture
 {
     class ScreenSource
     {

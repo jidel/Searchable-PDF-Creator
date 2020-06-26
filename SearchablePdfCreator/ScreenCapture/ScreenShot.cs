@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows;
 
-namespace TextRecognition.ScreenCapture
+namespace SearchablePdfCreator.ScreenCapture
 {
     static class ScreenShot
     {

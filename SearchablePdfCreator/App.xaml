@@ -1,7 +1,7 @@
-﻿<Application x:Class="TextRecognition.App"
+﻿<Application x:Class="SearchablePdfCreator.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:TextRecognition"
+             xmlns:local="clr-namespace:SearchablePdfCreator"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

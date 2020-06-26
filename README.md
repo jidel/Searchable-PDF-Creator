@@ -5,6 +5,9 @@ It uses the compiled tesseract binaries from [UB Mannheim](https://github.com/UB
 
 ![Screenshot of Searchable PDf Creator](https://raw.githubusercontent.com/jidel/Searchable-PDF-Creator/master/screenshot.png)
 
+## Supported Languages
+Currently, German and English are the only supported OCR languages.
+
 ## License
 
     The code in this repository is licensed under the Apache License, Version 2.0 (the "License");
