@@ -5,10 +5,11 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace TextRecognition.FileTasks
 {
-    internal class ImageOcrTask : BindableBase, IOcrTask
+    internal class ImageOcrTask : BindableBase, IOcrTask, IDisposable
     {
         private FileInfo _fileInfo;
         private string _statusMessage;
@@ -24,6 +25,8 @@ namespace TextRecognition.FileTasks
             _culture = culture;
             _fileInfo = fileInfo;
             Status = OcrStatus.Created;
+
+            Application.Current.Exit += OnExit;
         }
 
         public string FullPath => _fileInfo.FullName;
@@ -75,13 +78,13 @@ namespace TextRecognition.FileTasks
         {
             var tesseractOcr = new TesseractOcr(_culture);
 
-            var outputFile = new OcrPdfOutputFile(_fileInfo.Directory, _fileInfo.Name);
+            var outputFile = new OcrPdfOutputFile(_fileInfo.Name);
             await tesseractOcr.Execute(_fileInfo.FullName, outputFile);
 
             ResultFilePath = outputFile.FullPath;
         }
 
-        private void OpenResultFile()
+        public void OpenResultFile()
         {
             if (!_openCreatedFiles)
             {
@@ -118,6 +121,34 @@ namespace TextRecognition.FileTasks
             }
 
             return false;
+        }
+
+        ~ImageOcrTask() { Dispose(false); }
+
+        public void Dispose() { Dispose(true); }
+
+        private void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                GC.SuppressFinalize(this);
+            }
+            if (_resultFilePath != null)
+            {
+                try { File.Delete(_resultFilePath); }
+                catch { } // best effort
+                _resultFilePath = null;
+            }
+        }
+
+        private void OnExit(object sender, ExitEventArgs e)
+        {
+            Dispose();
+        }
+
+        public bool CanOpenResultFile()
+        {
+            return !string.IsNullOrEmpty(ResultFilePath);
         }
     }
 }

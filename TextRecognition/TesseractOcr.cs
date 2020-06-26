@@ -45,7 +45,7 @@ namespace TextRecognition
             var files = Directory.GetFiles(tessdata, "*.traineddata");
             foreach (var filePath in files)
             {
-                if (filePath == "osd.traineddata")
+                if (filePath.EndsWith("osd.traineddata"))
                 {
                     continue;
                 }

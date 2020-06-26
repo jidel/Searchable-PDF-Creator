@@ -4,9 +4,9 @@ namespace TextRecognition
 {
     class OcrPdfOutputFile : IOcrOutputFile
     {
-        public OcrPdfOutputFile(DirectoryInfo directory, string fileName)
+        public OcrPdfOutputFile(string fileName)
         {
-            PathWithoutExtension = Path.Combine(directory.FullName, $"{fileName}.searchable");
+            PathWithoutExtension = Path.Combine(Path.GetTempPath(), $"{fileName}.searchable");
         }
 
         public string PathWithoutExtension { get; }

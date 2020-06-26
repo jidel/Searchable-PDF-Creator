@@ -1,10 +1,12 @@
 ﻿using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Mvvm;
+using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Windows;
 using TextRecognition.FileTasks;
 using TextRecognition.ScreenCapture;
 
@@ -23,6 +25,8 @@ namespace TextRecognition
 
             BrowseFileCommand = new DelegateCommand(BrowseFile);
             TakeScreenShotCommand = new DelegateCommand(TakeScreenshot);
+            OpenFileCommand = new DelegateCommand<IOcrTask>(OpenFile, CanOpenOrSaveFile);
+            SaveFileCommand = new DelegateCommand<IOcrTask>(SaveFile, CanOpenOrSaveFile);
         }
 
         private void FillCultures()
@@ -41,6 +45,10 @@ namespace TextRecognition
         }
 
         public DelegateCommand TakeScreenShotCommand { get; }
+
+        public DelegateCommand<IOcrTask> OpenFileCommand { get; }
+
+        public DelegateCommand<IOcrTask> SaveFileCommand { get; set; }
 
         public DelegateCommand BrowseFileCommand { get; }
 
@@ -63,7 +71,7 @@ namespace TextRecognition
                 return;
             }
             
-            var tempPath = Path.GetTempFileName() + ".png";
+            var tempPath = Path.Combine(Path.GetTempPath(), $"Screenshot-{DateTime.Now:yyyy-dd-M HH-mm-ss}.png");
             using (var temp = new TempFile(tempPath))
             {
                 image.Save(tempPath);
@@ -100,10 +108,17 @@ namespace TextRecognition
             var ocrTask = CreateTask(fileInfo);
             RunningTasks.Add(ocrTask);
             ocrTask.Start();
+            ocrTask.Completion.ContinueWith(task => { ReEvaluateCommands(); });
             return ocrTask;
         }
 
-        public IOcrTask CreateTask(FileInfo fileInfo)
+        private void ReEvaluateCommands()
+        {
+            OpenFileCommand.RaiseCanExecuteChanged();
+            SaveFileCommand.RaiseCanExecuteChanged();
+        }
+
+        private IOcrTask CreateTask(FileInfo fileInfo)
         {
             if (ImageOcrTask.SupportsExtension(fileInfo.Extension))
             {
@@ -111,6 +126,50 @@ namespace TextRecognition
             }
 
             return new UnsupportedFileTask(fileInfo);
+        }
+
+
+        private void OpenFile(IOcrTask task)
+        {
+            if (!CanOpenOrSaveFile(task))
+            {
+                return;
+            }
+
+            task.OpenResultFile();
+        }
+
+        private void SaveFile(IOcrTask task)
+        {
+            if (!CanOpenOrSaveFile(task))
+            {
+                return;
+            }
+
+            var dialog = new SaveFileDialog();
+            dialog.FileName = GetPdfFileName(task.Name);
+            dialog.Filter = "Searchable PDF file (*.pdf)|*.pdf";
+            if (dialog.ShowDialog() == true)
+            {
+                File.Copy(task.ResultFilePath, dialog.FileName);
+            }
+        }
+
+        private static string GetPdfFileName(string originalFileName)
+        {
+            var extensionStart = originalFileName.LastIndexOf('.');
+            var cleanFileName = originalFileName.Substring(0, extensionStart);
+            return cleanFileName + ".pdf";
+        }
+
+        private bool CanOpenOrSaveFile(IOcrTask task)
+        {
+            if (task == null)
+            {
+                return false;
+            }
+
+            return task.CanOpenResultFile();
         }
     }
 }

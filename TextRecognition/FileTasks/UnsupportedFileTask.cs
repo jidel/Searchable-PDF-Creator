@@ -25,6 +25,16 @@ namespace TextRecognition.FileTasks
 
         public Task Completion => Task.CompletedTask;
 
+        public bool CanOpenResultFile()
+        {
+            return false;
+        }
+
+        public void OpenResultFile()
+        {
+            // Do nothing
+        }
+
         public void Start()
         {
             // Do nothing

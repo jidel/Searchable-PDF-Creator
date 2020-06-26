@@ -18,5 +18,9 @@ namespace TextRecognition
         bool IsProcessing { get; }
 
         public Task Completion { get; }
+
+        void OpenResultFile();
+
+        bool CanOpenResultFile();
     }
 }
