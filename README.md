@@ -1,5 +1,5 @@
 # Searchable PDF Creator
-Quick proof of concept that performs OCR (optical character recognition) on images. Portable application, no installation and admin priviliges required.
+Quick proof of concept that performs OCR (optical character recognition) on images. Portable application, no installation or admin priviliges required.
 The application is a simple GUI wrapper around [tesseract](https://github.com/tesseract-ocr/tesseract).
 It uses the compiled tesseract binaries from [UB Mannheim](https://github.com/UB-Mannheim/tesseract/wiki) version ```v5.0.0-alpha.20200328```
 
